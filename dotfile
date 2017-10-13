@@ -16,4 +16,8 @@ civilizations->to[ label = 1 ];
 good; 
 }
 something 
+<<<<<<< HEAD
 b1
+=======
+b1
+>>>>>>> C4

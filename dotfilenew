@@ -25,4 +25,8 @@ seek -> out[ label = 2, color = blue ]
 
 out -> new[ label = 1, color = blue ] 
 }
+<<<<<<< HEAD
 b1
+=======
+b1
+>>>>>>> C4
