@@ -25,3 +25,4 @@ seek -> out[ label = 2, color = blue ]
 
 out -> new[ label = 1, color = blue ] 
 }
+b1
