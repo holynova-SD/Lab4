@@ -1,0 +1,27 @@
+digraph graphname{ 
+To->explore[ label = 1 ]; 
+To->seek[ label = 2 ]; 
+seek->out[ label = 2 ]; 
+out->good[ label = 1 ]; 
+out->new[ label = 1 ]; 
+new->civilizations[ label = 1 ]; 
+new->life[ label = 1 ]; 
+new->worlds[ label = 1 ]; 
+worlds->To[ label = 1 ]; 
+life->and[ label = 1 ]; 
+and->new[ label = 1 ]; 
+civilizations->To[ label = 1 ]; 
+explore->strange[ label = 1 ]; 
+strange->new[ label = 1 ]; 
+good; 
+
+new -> civilizations[ label = 1, color = blue ] 
+
+civilizations -> To[ label = 1, color = blue ] 
+
+To -> seek[ label = 2, color = blue ] 
+
+seek -> out[ label = 2, color = blue ] 
+
+out -> new[ label = 1, color = blue ] 
+}
