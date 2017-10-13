@@ -34,3 +34,4 @@ public class node{
 		System.out.print(this.data+"   ");
 	}
 }
+//b2
