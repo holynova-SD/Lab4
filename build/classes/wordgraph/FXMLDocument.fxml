@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="913.0" prefWidth="1665.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="wordgraph.FXMLDocumentController">
+   <children>
+      <AnchorPane prefHeight="913.0" prefWidth="428.0" style="-fx-background-color: #5D478B;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextArea fx:id="textarea" layoutX="17.0" layoutY="208.0" onDragDetected="#handleButtonAction" prefHeight="638.0" prefWidth="389.0" promptText="input  sentence to join with bridge" />
+            <Button fx:id="generate" layoutX="256.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleButtonAction" text="genetate" />
+            <Button fx:id="join" layoutX="267.0" layoutY="859.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="84.0" text="join" />
+            <TextField fx:id="filepath" layoutX="29.0" layoutY="31.0" prefHeight="45.0" prefWidth="322.0" promptText="file path" />
+            <Button fx:id="offline" layoutX="29.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleButtonAction" text="offline" />
+            <Button fx:id="online" layoutX="95.0" layoutY="94.0" mnemonicParsing="false" onAction="#handleButtonAction" text="online" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="427.0" prefHeight="913.0" prefWidth="225.0" style="-fx-background-color: #5CACEE;" AnchorPane.bottomAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TextField fx:id="word1" layoutX="25.0" layoutY="162.0" prefHeight="37.0" prefWidth="179.0" promptText="word1" />
+            <TextField fx:id="word2" layoutX="25.0" layoutY="372.0" prefHeight="37.0" prefWidth="179.0" promptText="word2" />
+            <Button fx:id="search" layoutX="128.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleButtonAction" text="search" />
+            <Button fx:id="randomwalk" layoutX="62.0" layoutY="780.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="123.0" text="random walk" />
+            <Button fx:id="distance" layoutX="52.0" layoutY="603.0" mnemonicParsing="false" onAction="#handleButtonAction" text="shortest distance" />
+            <Button fx:id="stopwalk" layoutX="62.0" layoutY="839.0" mnemonicParsing="false" onAction="#handleButtonAction" prefHeight="30.0" prefWidth="123.0" text="Stop walk" />
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="652.0" prefHeight="775.0" prefWidth="1011.0" style="-fx-background-color: #AEEEEE;">
+         <children>
+            <ImageView fx:id="imgaarea" fitHeight="775.0" fitWidth="1014.0" onDragDetected="#handleButtonAction" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </AnchorPane>
+      <TextArea fx:id="inforarea" layoutX="650.0" layoutY="777.0" onDragDetected="#handleButtonAction" prefHeight="138.0" prefWidth="1014.0" />
+   </children>
+</AnchorPane>
