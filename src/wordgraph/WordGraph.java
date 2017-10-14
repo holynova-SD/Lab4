@@ -35,5 +35,8 @@ public class WordGraph extends Application {
     }
     
 }
+<<<<<<< HEAD
 //b2
 //b2
+=======
+>>>>>>> 1d62166b6861280b327d8486de7d567280e28c57

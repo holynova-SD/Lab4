@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 To explore strange new worlds,
 To seek out new life and new civilizations
 To seek out goodtest change
@@ -6,3 +7,11 @@ b1
 =======
 b1
 >>>>>>> C4
+=======
+To @ explore the strange new worlds,
+To seek out new life and new civilizations.
+the strange new worlds.
+I love you not for who you are, but for who I am before you.
+Easy study is the new thought in new studying.
+He studied to think to see new life.
+>>>>>>> 1d62166b6861280b327d8486de7d567280e28c57

@@ -33,5 +33,9 @@ public class node{
 	void show_data(){
 		System.out.print(this.data+"   ");
 	}
+<<<<<<< HEAD
 }
 //b2
+=======
+}
+>>>>>>> 1d62166b6861280b327d8486de7d567280e28c57

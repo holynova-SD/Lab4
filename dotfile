@@ -1,4 +1,5 @@
 digraph graphname{ 
+<<<<<<< HEAD
 and->new[ label = 1 ]; 
 new->civilizations[ label = 1 ]; 
 new->life[ label = 1 ]; 
@@ -21,3 +22,50 @@ b1
 =======
 b1
 >>>>>>> C4
+=======
+am->before[ label = 1 ]; 
+before->you[ label = 1 ]; 
+you->are[ label = 1 ]; 
+you->easy[ label = 1 ]; 
+you->not[ label = 1 ]; 
+not->for[ label = 1 ]; 
+for->who[ label = 2 ]; 
+who->i[ label = 1 ]; 
+who->you[ label = 1 ]; 
+i->am[ label = 1 ]; 
+i->love[ label = 1 ]; 
+love->you[ label = 1 ]; 
+easy->study[ label = 1 ]; 
+study->he[ label = 1 ]; 
+study->is[ label = 1 ]; 
+study->to[ label = 1 ]; 
+to->explore[ label = 1 ]; 
+to->see[ label = 1 ]; 
+to->seek[ label = 1 ]; 
+to->think[ label = 1 ]; 
+think->to[ label = 1 ]; 
+seek->out[ label = 1 ]; 
+out->new[ label = 1 ]; 
+new->civilizations[ label = 1 ]; 
+new->life[ label = 2 ]; 
+new->study[ label = 1 ]; 
+new->thought[ label = 1 ]; 
+new->worlds[ label = 2 ]; 
+worlds->i[ label = 1 ]; 
+worlds->to[ label = 1 ]; 
+thought->in[ label = 1 ]; 
+in->new[ label = 1 ]; 
+life->and[ label = 1 ]; 
+and->new[ label = 1 ]; 
+civilizations->the[ label = 1 ]; 
+the->new[ label = 1 ]; 
+the->strange[ label = 2 ]; 
+strange->new[ label = 2 ]; 
+see->new[ label = 1 ]; 
+explore->the[ label = 1 ]; 
+is->the[ label = 1 ]; 
+he->study[ label = 1 ]; 
+are->but[ label = 1 ]; 
+but->for[ label = 1 ]; 
+}
+>>>>>>> 1d62166b6861280b327d8486de7d567280e28c57

@@ -45,7 +45,11 @@ import javafx.scene.input.MouseEvent;
  */
 public class FXMLDocumentController implements Initializable {
     static Map<String, node> nodes = new TreeMap<String, node>();
+<<<<<<< HEAD
     final String pathString = "C:\\Users\\qiusuo\\Documents\\NetBeansProjects\\WordGraph\\picture.gif";
+=======
+    final String pathString = "C:\\Users\\86345\\Documents\\NetBeansProjects\\WordGraph_last\\WordGraph\\picture.gif";
+>>>>>>> 1d62166b6861280b327d8486de7d567280e28c57
     boolean firstwalk=true;
     boolean onlinetag=false;
     @FXML
