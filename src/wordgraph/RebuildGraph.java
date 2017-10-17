@@ -46,7 +46,7 @@ public class RebuildGraph {
         }
           try{
 			 String cont = content.toString();
-			 File fileout =new File("dotfilenew");
+			 File fileout =new File("dotfilenew.dot");
 
 			 //if fileout doesnt exists, then create it
 			if(!fileout.exists()){
@@ -59,9 +59,11 @@ public class RebuildGraph {
 			 bufferWritter.close(); System.out.println("Done");
 			 }
 		 catch(IOException e){}
-		 
+         
 		 try{
-			 String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe  -Tgif dotfilenew -o picture.gif";
+			 String cmd = "/usr/local/bin/dot -Tgif dotfilenew.dot -o picture.gif";
+			 //String cmd = "/usr/local/bin/dot -Tgif dotfilenew -o picture.gif";
+			 //String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe  -Tgif dotfilenew -o picture.gif";
 			 Runtime.getRuntime().exec(cmd).waitFor();
                         
 			 }catch(IOException e){}     

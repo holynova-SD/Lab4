@@ -45,7 +45,8 @@ import javafx.scene.input.MouseEvent;
  */
 public class FXMLDocumentController implements Initializable {
     static Map<String, node> nodes = new TreeMap<String, node>();
-    final String pathString = "C:\\Users\\86345\\Documents\\NetBeansProjects\\WordGraph_last\\WordGraph\\picture.gif";
+    final String pathString = "/Users/apple/git/Lab4/picture.gif";
+    //final String pathString = "C:\\Users\\86345\\Documents\\NetBeansProjects\\WordGraph_last\\WordGraph\\picture.gif";
     boolean firstwalk=true;
     boolean onlinetag=false;
     @FXML
@@ -375,7 +376,7 @@ public class FXMLDocumentController implements Initializable {
             }
         }
         content.append("}\n");
-
+        
         try {
             String cont = content.toString();
             File file = new File("dotfile");
@@ -392,12 +393,14 @@ public class FXMLDocumentController implements Initializable {
             System.out.println("Done");
         } catch (IOException e) {
         }
-
+        
         try {
-            String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe  -Tgif dotfile -o picture.gif";
+        		String cmd = "/usr/local/bin/dot -Tgif dotfile -o picture.gif";
+            //String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe  -Tgif dotfile -o picture.gif";
             Runtime.getRuntime().exec(cmd).waitFor();
 
         } catch (IOException e) {
+        	
         }
     }
 
