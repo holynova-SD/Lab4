@@ -674,7 +674,8 @@ public class FXMLDocumentController implements Initializable {
     final String randomWalk(final Map<String, Node> graphNodes) {
         final Set<String> visit = new TreeSet<String>();
         final Random ramdomOne = new Random();
-        int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
+        int pos = ramdomOne.nextInt(graphNodes.size());
+        //int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
         String cur = null;
         int i = 0;
         for (final String key : graphNodes.keySet()) {
@@ -691,7 +692,8 @@ public class FXMLDocumentController implements Initializable {
                 break;
             }
             final int size = graphNodes.get(cur).getChild().keySet().size();
-            pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
+            pos = Math.abs(ramdomOne.nextInt(size));
+            //pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
             i = 0;
             String next = "";
             for (final String key : graphNodes.get(cur).getChild().keySet()) {
@@ -816,7 +818,8 @@ class MyThread extends Thread {
     String randomWalk(final Map<String, Node> graphNodes) {
         final Set<String> visit = new TreeSet<String>();
         final Random ramdomOne = new Random();
-        int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
+        int pos = Math.abs(ramdomOne.nextInt(graphNodes.size()));
+        //int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
         String cur = null;
         int i = 0;
         for (final String key : graphNodes.keySet()) {
@@ -834,7 +837,8 @@ class MyThread extends Thread {
                 break;
             }
             final int size = graphNodes.get(cur).getChild().keySet().size();
-            pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
+            pos = Math.abs(ramdomOne.nextInt(size));
+            //pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
             i = 0;
             String next = "";
             for (final String key : graphNodes.get(cur).getChild().keySet()) {

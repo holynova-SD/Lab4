@@ -35,17 +35,17 @@ public class SearchWordFromInternet {
             if (bufrIn != null) {
                 resultString = bufrIn.readLine();
             }
-
         } catch (Exception e) {
         }
-
-
-        if (resultString.length() > 0) {
-            return resultString;
+        if (resultString == null) {
+            return word;
         } else {
-          return word;
+            if (resultString.length() > 0) {
+                return resultString;
+            } else {
+                return word;
+            }
         }
-
     }
 }
 
