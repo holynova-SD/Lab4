@@ -10,7 +10,7 @@ public class Node {
     /**
      * .
      */
-    private String data = new String();
+    //private String data = new String();
     /** */
     private Map<String, Integer> child = new TreeMap<String, Integer>();
     /**
@@ -25,14 +25,14 @@ public class Node {
      */
     Node() {
         child.clear();
-        data = "";
+        //data = "";
     }
     /**
      * .
      * @param initData ;
      */
     Node(final String initData) {
-        this.data = initData;
+        //this.data = initData;
         child.clear();
     }
 //    /**

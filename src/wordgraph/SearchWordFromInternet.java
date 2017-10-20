@@ -11,6 +11,7 @@ public class SearchWordFromInternet {
      * .
      */
     SearchWordFromInternet() {
+        //Nothing special is needed here.
     }
     /**
      * .

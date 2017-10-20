@@ -1,6 +1,7 @@
 package wordgraph;
 import java.io.File;
 import java.net.URL;
+import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
@@ -38,7 +39,7 @@ public class FXMLDocumentController implements Initializable {
     /** */
     private boolean firstwalk = true;
     /** */
-    private boolean onlinetag = false;
+    private boolean onlinetag;
     /** */
     @FXML
     private TextArea textarea;
@@ -90,16 +91,72 @@ public class FXMLDocumentController implements Initializable {
     /** */
     public static final Integer HEIGHT = 780;
     /**
+     * .
+     * @return .
+     */
+    public boolean isOnlinetag() {
+        return this.onlinetag;
+    }
+    /**
+     * .
+     * @param tag ;
+     */
+    public void setOnlinetag(final boolean tag) {
+        this.onlinetag = tag;
+    }
+    /**
+     * .
+     * @return .
+     */
+    public TextArea getTextarea() {
+        return this.textarea;
+    }
+    /**
+     * .
+     * @param area ;
+     */
+    public void setTextarea(final TextArea area) {
+        this.textarea = area;
+    }
+    /**
+     * .
+     * @return .
+     */
+    public Button getGenerate() {
+        return this.generate;
+    }
+    /**
+     * .
+     * @param paraGenerate ;
+     */
+    public void setGenerate(final Button paraGenerate) {
+        this.generate = paraGenerate;
+    }
+    /**
+     * .
+     * @return .
+     */
+    public Button getJoin() {
+        return this.join;
+    }
+    /**
+     * .
+     * @param paraJoin ;
+     */
+    public void setJoin(final Button paraJoin) {
+        this.generate = paraJoin;
+    }
+    /**
      *
      * @param event ;
      */
     @FXML
     private void handleButtonAction(final ActionEvent event) {
+        onlinetag = false;
         if (event.getSource() == generate) {
-            String textString = filepath.getText();
+            final String textString = filepath.getText();
             try {
                 nodes.clear();
-                System.out.println(textString);
                 createDirectedGraph(textString);
                 showDirectedGraph(nodes);
                 imgaarea.setImage(new Image(new FileInputStream(pathString)));
@@ -108,42 +165,42 @@ public class FXMLDocumentController implements Initializable {
             // System.out.println(textString);
         }
         if (event.getSource() == join) {
-            String textString = textarea.getText();
+            final String textString = textarea.getText();
 
             inforarea.setText(generateNewText(nodes, textString));
         }
         if (event.getSource() == search) {
-            String wordOne = word1.getText();
-            String wordTwo = word2.getText();
+            final String wordOne = word1.getText();
+            final String wordTwo = word2.getText();
             if (wordTwo.length() > 0 && wordOne.length() > 0) {
 
-                Vector<String> bridgeStrings =
+                final Vector<String> bridgeStrings =
                     queryBridgeWords(nodes, wordOne, wordTwo);
                 String toshowString = "The bridge word: ";
-                for (String wordString : bridgeStrings) {
+                for (final String wordString : bridgeStrings) {
                     toshowString += (wordString + "  ");
                 }
-                if (bridgeStrings.size() > 0) {
-                    inforarea.setText(toshowString);
-                    try {
-                        MarkPoint markPoint = new MarkPoint();
-                        markPoint.solution(bridgeStrings, nodes);
-                        imgaarea.setImage(new Image(new
-                            FileInputStream(pathString)));
-                    } catch (Exception e) {
-                    }
+                if (bridgeStrings.isEmpty()) {
+                  inforarea.setText("No bridge words from word1 to word2!");
                 } else {
-                    inforarea.setText("No bridge words from word1 to word2!");
+                  inforarea.setText(toshowString);
+                  try {
+                      final MarkPoint markPoint = new MarkPoint();
+                      markPoint.solution(bridgeStrings, nodes);
+                      imgaarea.setImage(new Image(new
+                          FileInputStream(pathString)));
+                  } catch (Exception e) {
+                  }
                 }
             } else {
                 inforarea.setText("No word1 or word2 in the graph!");
             }
         }
         if (event.getSource() == distance) {
-            String wordOne = word1.getText();
-            String wordTwo = word2.getText();
+            final String wordOne = word1.getText();
+            final String wordTwo = word2.getText();
             if (wordOne.length() > 0 && wordTwo.length() > 0) {
-                Vector<String> resultStrings =
+                final Vector<String> resultStrings =
                     calcShortestPath(nodes, wordOne, wordTwo);
 
                 String toshowString = "";
@@ -153,12 +210,13 @@ public class FXMLDocumentController implements Initializable {
 
                 inforarea.setText(toshowString);
                 try {
-                    RebuildGraph rebuildGraph = new RebuildGraph();
-                    Vector<Vector<String>> result =
+                    final RebuildGraph rebuildGraph = new RebuildGraph();
+                    final Vector<Vector<String>> result =
                         new Vector<Vector<String>>();
-                    for (String sen : resultStrings) {
-                        Vector<String> tempStrings = new Vector<String>();
-                        for (String word : sen.split(" ")) {
+                    final Vector<String> tempStrings = new Vector<String>();
+                    for (final String sen : resultStrings) {
+                        tempStrings.clear();
+                        for (final String word : sen.split(" ")) {
                             if (word.length() > 0) {
                                 tempStrings.add(0, word);
                             }
@@ -174,7 +232,7 @@ public class FXMLDocumentController implements Initializable {
             } else if (wordOne.length() > 0) {
 
                 String toshowString = "";
-                for (String wordString : nodes.keySet()) {
+                for (final String wordString : nodes.keySet()) {
                     if (!wordString.equals(wordOne)) {
                         toshowString += (calcShortestPath(nodes,
                             wordOne, wordString) + "\n");
@@ -187,14 +245,10 @@ public class FXMLDocumentController implements Initializable {
 
         }
         if (event.getSource() == offline) {
-            System.out.println("offline");
             onlinetag = false;
-            System.out.println(onlinetag);
         }
         if (event.getSource() == online) {
-            System.out.println(online);
             onlinetag = true;
-            System.out.println(onlinetag);
         }
         if (event.getSource() == randomwalk) {
             // String trace=randomWalk(nodes);
@@ -232,8 +286,6 @@ public class FXMLDocumentController implements Initializable {
         if (event.getSource() == stopwalk) {
             // myThread.setStop();
             myThread.suspend();
-            System.out.println("wordgraph.FXMLDocumentController."
-            + "handleButtonAction()");
         }
     }
     /**
@@ -252,15 +304,15 @@ public class FXMLDocumentController implements Initializable {
      */
     public void createDirectedGraph(final String filename) throws Exception {
 
-        File file = new File(filename);
+        final File file = new File(filename);
         if (!file.exists() || file.isDirectory()) {
             throw new FileNotFoundException();
         }
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        final BufferedReader br = new BufferedReader(new FileReader(file));
         String temp = null;
         temp = br.readLine();
-        Vector<String> reads = new Vector<String>();
-        SearchWordFromInternet seach = new SearchWordFromInternet();
+        final Vector<String> reads = new Vector<String>();
+        final SearchWordFromInternet seach = new SearchWordFromInternet();
         while (temp != null) {
             reads.add(temp);
             temp = br.readLine();
@@ -279,24 +331,24 @@ public class FXMLDocumentController implements Initializable {
             reads.setElementAt(line, i);
         }
 
-        Vector<Vector<String>> data = new Vector<Vector<String>>();
+        final Vector<Vector<String>> data = new Vector<Vector<String>>();
 
-        Vector<String> sentence = new Vector<String>();
-        for (String oneline : reads) {
+        final Vector<String> sentence = new Vector<String>();
+        for (final String oneline : reads) {
             for (String word : oneline.split(" ")) {
 
                 if (onlinetag) {
-                    System.out.println("online");
                     if (word.length() >= 1) {
 
-                        sentence.add(seach.solution(word.toLowerCase()));
+                        sentence.add(seach.solution(word.toLowerCase(
+                            Locale.ENGLISH)));
                     }
                 } else {
                     if (word.length() > THREE) {
                         if (word.charAt(word.length() - 1) == 's'
                             && word.charAt(word.length() - 2) == 'e'
                                 && word.charAt(word.length() - THREE) == 'i') {
-                            StringBuilder newword = new StringBuilder();
+                            final StringBuilder newword = new StringBuilder();
                             for (int i = 0; i < word.length() - THREE; i++) {
                                 newword.append(word.charAt(i));
                             }
@@ -306,7 +358,7 @@ public class FXMLDocumentController implements Initializable {
                         if (word.charAt(word.length() - 1) == 'd'
                             && word.charAt(word.length() - 2) == 'e'
                                 && word.charAt(word.length() - THREE) == 'i') {
-                            StringBuilder newword = new StringBuilder();
+                            final StringBuilder newword = new StringBuilder();
                             for (int i = 0; i < word.length() - THREE; i++) {
                                 newword.append(word.charAt(i));
                             }
@@ -316,7 +368,7 @@ public class FXMLDocumentController implements Initializable {
                         if (word.charAt(word.length() - 1) == 'g'
                             && word.charAt(word.length() - 2) == 'n'
                                 && word.charAt(word.length() - THREE) == 'i') {
-                            StringBuilder newword = new StringBuilder();
+                            final StringBuilder newword = new StringBuilder();
                             for (int i = 0; i < word.length() - THREE; i++) {
                                 newword.append(word.charAt(i));
                             }
@@ -326,18 +378,18 @@ public class FXMLDocumentController implements Initializable {
 
                     if (word.length() >= 1) {
 
-                        sentence.add(word.toLowerCase());
+                        sentence.add(word.toLowerCase(Locale.ENGLISH));
                     }
 
                 }
 
             }
         }
-        if (sentence.size() >= 1) {
+        if (!sentence.isEmpty()) {
             data.add(sentence);
         }
 
-        for (Vector<String> line : data) {
+        for (final Vector<String> line : data) {
             Node cur = null;
             if (nodes.containsKey(line.elementAt(0))) {
                 cur = nodes.get(line.elementAt(0));
@@ -356,7 +408,7 @@ public class FXMLDocumentController implements Initializable {
                             cur.getChild().put(line.elementAt(i), 1);
                             cur = nodes.get(line.elementAt(i));
                         } else {
-                            Node n = new Node(line.elementAt(i));
+                            final Node n = new Node(line.elementAt(i));
                             nodes.put(line.elementAt(i), n);
                             cur.getChild().put(line.elementAt(i), 1);
                             cur = n;
@@ -375,12 +427,12 @@ public class FXMLDocumentController implements Initializable {
     final void showDirectedGraph(final Map<String, Node> graphNodes)
         throws IOException, InterruptedException {
 
-        Set<String> visit = new TreeSet<String>();
+        final Set<String> visit = new TreeSet<String>();
 
-        StringBuilder content = new StringBuilder();
+        final StringBuilder content = new StringBuilder();
         content.append("digraph graphname{ \n");
-        Stack<String> stk = new Stack<String>();
-        for (String word : graphNodes.keySet()) {
+        final Stack<String> stk = new Stack<String>();
+        for (final String word : graphNodes.keySet()) {
             if (graphNodes.get(word).getChild().size() == 0) {
                 content.append(word + "; \n");
             }
@@ -396,9 +448,8 @@ public class FXMLDocumentController implements Initializable {
                     // System.out.println(temp);
                     // DataInputStream in=new DataInputStream(System.in);
                     // char ch = in.readChar();
-                    for (String son : graphNodes.get(
+                    for (final String son : graphNodes.get(
                         temp).getChild().keySet()) {
-                        System.out.println(temp + "->" + son + ";");
                         content.append(temp + "->" + son + "[ label = "
                         + graphNodes.get(temp).getChild().get(son) + " ]; \n");
                         if (!visit.contains(son)) {
@@ -411,24 +462,26 @@ public class FXMLDocumentController implements Initializable {
         content.append("}\n");
 
         try {
-            String cont = content.toString();
-            File file = new File("dotfile");
+            final String cont = content.toString();
+            final File file = new File("dotfile");
 
             // if file doesnt exists, then create it
             if (!file.exists()) {
                 file.createNewFile();
             }
             // true = append file
-            FileWriter fileWritter = new FileWriter(file.getName(), false);
-            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            final FileWriter fileWritter =
+                new FileWriter(file.getName(), false);
+            final BufferedWriter bufferWritter =
+                new BufferedWriter(fileWritter);
             bufferWritter.write(cont);
             bufferWritter.close();
-            System.out.println("Done");
         } catch (IOException e) {
         }
 
         try {
-            String cmd = "/usr/local/bin/dot -Tgif dotfile -o picture.gif";
+            final String cmd =
+                "/usr/local/bin/dot -Tgif dotfile -o picture.gif";
             //String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe"
             //+ "-Tgif dotfile -o picture.gif";
             Runtime.getRuntime().exec(cmd).waitFor();
@@ -446,12 +499,12 @@ public class FXMLDocumentController implements Initializable {
      */
     final Vector<String> queryBridgeWords(final Map<String, Node> graphNodes,
         final String wordFirst, final String wordSecond) {
-        Vector<String> result = new Vector<String>();
+        final Vector<String> result = new Vector<String>();
         if (!graphNodes.containsKey(wordFirst)
             || !graphNodes.containsKey(wordSecond)) {
             return result;
         }
-        for (String son : graphNodes.get(wordFirst).getChild().keySet()) {
+        for (final String son : graphNodes.get(wordFirst).getChild().keySet()) {
             if (graphNodes.get(son).getChild().containsKey(wordSecond)) {
                 result.add(son);
             }
@@ -467,7 +520,7 @@ public class FXMLDocumentController implements Initializable {
      */
     final String generateNewText(final Map<String, Node> graphNodes,
         final String inputText) {
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         String result = "";
 
         for (int i = 0; i < inputText.length(); i++) {
@@ -477,18 +530,18 @@ public class FXMLDocumentController implements Initializable {
                 builder.append(" ");
             }
         }
-        Vector<String> temp = new Vector<String>();
-        SearchWordFromInternet seach = new SearchWordFromInternet();
-        for (String word : builder.toString().split(" ")) {
+        final Vector<String> temp = new Vector<String>();
+        final SearchWordFromInternet seach = new SearchWordFromInternet();
+        for (final String word : builder.toString().split(" ")) {
             if (word.length() >= 1) {
                 if (onlinetag) {
-                    temp.add(seach.solution(word.toLowerCase()));
+                    temp.add(seach.solution(word.toLowerCase(Locale.ENGLISH)));
                 } else {
-                    temp.add(word.toLowerCase());
+                    temp.add(word.toLowerCase(Locale.ENGLISH));
                 }
             }
         }
-        StringBuilder resultBuilder = new StringBuilder();
+        final StringBuilder resultBuilder = new StringBuilder();
 
         Vector<String> bridge = null;
         boolean firstTag = true;
@@ -516,13 +569,14 @@ public class FXMLDocumentController implements Initializable {
      */
     final Vector<String> calcShortestPath(final Map<String, Node> graphNodes,
         final String wordFirst, final String wordSecond) {
-        Map<String, Vector<String>> path = shortestPath(graphNodes, wordFirst);
-        Vector<Vector<String>> result = new Vector<Vector<String>>();
+        final Map<String, Vector<String>> path =
+            shortestPath(graphNodes, wordFirst);
+        final Vector<Vector<String>> result = new Vector<Vector<String>>();
 
-        Stack<String> stk = new Stack<String>();
+        final Stack<String> stk = new Stack<String>();
         String cur = wordSecond;
         stk.push(cur);
-        Stack<Vector<String>> stkv = new Stack<Vector<String>>();
+        final Stack<Vector<String>> stkv = new Stack<Vector<String>>();
         Vector<String> temp = new Vector<String>();
         while (stk.size() > 0) {
             cur = stk.pop();
@@ -538,15 +592,15 @@ public class FXMLDocumentController implements Initializable {
                 } else {
                     stk.push(path.get(cur).elementAt(i));
                     if (i >= 1) {
-                        Vector<String> tt = new Vector<String>(temp);
+                        final Vector<String> tt = new Vector<String>(temp);
                         stkv.push(tt);
                     }
                 }
             }
         }
-        Vector<String> reStrings = new Vector<String>();
-        for (Vector<String> lineStrings : result) {
-            StringBuilder tempBuilder = new StringBuilder();
+        final Vector<String> reStrings = new Vector<String>();
+        for (final Vector<String> lineStrings : result) {
+            final StringBuilder tempBuilder = new StringBuilder();
             for (int i = lineStrings.size() - 1; i >= 0; i--) {
                 tempBuilder.append(lineStrings.elementAt(i) + " ");
             }
@@ -566,12 +620,12 @@ public class FXMLDocumentController implements Initializable {
         if (!graphNodes.containsKey(wordFirst)) {
             return null;
         }
-        Map<String, Integer> lenth = new TreeMap<String, Integer>();
-        Set<String> visit = new TreeSet<String>();
-        Map<String, Vector<String>> path =
+        final Map<String, Integer> lenth = new TreeMap<String, Integer>();
+        final Set<String> visit = new TreeSet<String>();
+        final Map<String, Vector<String>> path =
             new TreeMap<String, Vector<String>>();
 
-        Stack<String> stk = new Stack<String>();
+        final Stack<String> stk = new Stack<String>();
         stk.push(wordFirst);
         visit.add(wordFirst);
         lenth.put(wordFirst, 0);
@@ -579,33 +633,33 @@ public class FXMLDocumentController implements Initializable {
         while (stk.size() >= 1) {
             temp = stk.pop();
 
-            for (String son : graphNodes.get(temp).getChild().keySet()) {
-                if (!visit.contains(son)) {
-                    stk.push(son);
-                    Vector<String> value = new Vector<String>();
-                    value.add(temp);
-                    path.put(son, value);
-                    lenth.put(son, lenth.get(temp)
-                        + graphNodes.get(temp).getChild().get(son));
-                    visit.add(son);
+            for (final String son : graphNodes.get(temp).getChild().keySet()) {
+                if (visit.contains(son)) {
+                  if (lenth.get(temp) + graphNodes.get(
+                      temp).getChild().get(son) < lenth.get(son)) {
+                      final Vector<String> value = path.get(son);
+                      value.clear();
+                      value.add(temp);
+                      // if(stk.contains(son)) stk.remove(son);
+                      stk.push(son);
+                      lenth.put(son, lenth.get(temp)
+                          + graphNodes.get(temp).getChild().get(son));
+                      path.put(son, value);
+                  } else if (lenth.get(temp)
+                      + graphNodes.get(temp).getChild().get(son)
+                      == lenth.get(son)) {
+                      final Vector<String> value = path.get(son);
+                      value.add(temp);
+                      path.put(son, value);
+                  }
                 } else {
-                    if (lenth.get(temp) + graphNodes.get(
-                        temp).getChild().get(son) < lenth.get(son)) {
-                        Vector<String> value = path.get(son);
-                        value.clear();
-                        value.add(temp);
-                        // if(stk.contains(son)) stk.remove(son);
-                        stk.push(son);
-                        lenth.put(son, lenth.get(temp)
-                            + graphNodes.get(temp).getChild().get(son));
-                        path.put(son, value);
-                    } else if (lenth.get(temp)
-                        + graphNodes.get(temp).getChild().get(son)
-                        == lenth.get(son)) {
-                        Vector<String> value = path.get(son);
-                        value.add(temp);
-                        path.put(son, value);
-                    }
+                  stk.push(son);
+                  final Vector<String> value = new Vector<String>();
+                  value.add(temp);
+                  path.put(son, value);
+                  lenth.put(son, lenth.get(temp)
+                      + graphNodes.get(temp).getChild().get(son));
+                  visit.add(son);
                 }
 
             }
@@ -618,47 +672,46 @@ public class FXMLDocumentController implements Initializable {
      * @return .
      */
     final String randomWalk(final Map<String, Node> graphNodes) {
-        Set<String> visit = new TreeSet<String>();
-        Random r1 = new Random();
-        int pos = (int) (Math.abs(r1.nextInt()) % graphNodes.size());
+        final Set<String> visit = new TreeSet<String>();
+        final Random ramdomOne = new Random();
+        int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
         String cur = null;
         int i = 0;
-        for (String key : graphNodes.keySet()) {
+        for (final String key : graphNodes.keySet()) {
             if (i == pos) {
                 cur = key;
                 break;
             }
             i++;
         }
-        Vector<String> result = new Vector<String>();
+        final Vector<String> result = new Vector<String>();
         result.add(cur);
         while (true) {
             if (graphNodes.get(cur).getChild().size() == 0) {
                 break;
             }
-            int size = graphNodes.get(cur).getChild().keySet().size();
-            pos = (int) (Math.abs(r1.nextInt()) % size);
+            final int size = graphNodes.get(cur).getChild().keySet().size();
+            pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
             i = 0;
             String next = "";
-            for (String key : graphNodes.get(cur).getChild().keySet()) {
+            for (final String key : graphNodes.get(cur).getChild().keySet()) {
                 if (i == pos) {
                     next = key;
                     break;
                 }
                 i++;
             }
-            String edge = cur + " " + next;
-            if (!visit.contains(edge)) {
-                visit.add(edge);
-                System.out.println(edge);
-            } else {
+            final String edge = cur + " " + next;
+            if (visit.contains(edge)) {
                 break;
+            } else {
+                visit.add(edge);
             }
             cur = next;
             result.add(next);
         }
-        StringBuilder tempBuilder = new StringBuilder();
-        for (String word : result) {
+        final StringBuilder tempBuilder = new StringBuilder();
+        for (final String word : result) {
             tempBuilder.append(word + " ");
         }
         return tempBuilder.toString();
@@ -673,15 +726,15 @@ public class FXMLDocumentController implements Initializable {
  */
 class MyThread extends Thread {
     /** */
-    private ImageView imgaarea = null;
+    private ImageView imgaarea;
     /** */
-    private String pathString = "";
+    private String pathString;
     /** */
-    private TextArea inforarea = null;
+    private TextArea inforarea;
     /** */
-    private Map<String, Node> nodes = null;
+    private Map<String, Node> nodes;
     /** */
-    private volatile boolean exit = true;
+    private boolean exit;
     /***/
     public static final Integer SLEEP_TIME = 1000;
     /**
@@ -702,6 +755,11 @@ class MyThread extends Thread {
      * .
      */
     MyThread() {
+        this.imgaarea = new ImageView();
+        this.pathString = "";
+        this.inforarea = new TextArea();
+        this.nodes = null;
+        this.exit = true;
     }
     /**
      * .
@@ -719,33 +777,31 @@ class MyThread extends Thread {
     @Override
     public void run() {
         while (exit) {
-            String trace = randomWalk(nodes);
-            Vector<String> traceString = new Vector<String>();
-            for (String wordString : trace.split(" ")) {
+            final String trace = randomWalk(nodes);
+            final Vector<String> traceString = new Vector<String>();
+            for (final String wordString : trace.split(" ")) {
                 if (wordString.length() > 0) {
                     traceString.add(wordString);
                 }
             }
 
             String toshowString = "";
-            for (String wordString : traceString) {
+            for (final String wordString : traceString) {
                 toshowString += wordString + " ";
             }
-            Vector<Vector<String>> result = new Vector<Vector<String>>();
-            Vector<String> traceStringreverse = new Vector<>();
+            final Vector<Vector<String>> result = new Vector<Vector<String>>();
+            final Vector<String> traceStringreverse = new Vector<>();
             for (int i = traceString.size() - 1; i >= 0; i--) {
                 traceStringreverse.add(traceString.elementAt(i));
             }
             try {
                 result.add(traceStringreverse);
-                RebuildGraph rebuildGraph = new RebuildGraph();
+                final RebuildGraph rebuildGraph = new RebuildGraph();
                 rebuildGraph.solution(result, nodes);
                 imgaarea.setImage(new Image(new FileInputStream(pathString)));
             } catch (Exception e) {
             }
             inforarea.setText(toshowString);
-
-            System.out.println("wordgraph.MyThread.run()");
             try {
                 sleep(SLEEP_TIME);
             } catch (Exception e) {
@@ -758,48 +814,48 @@ class MyThread extends Thread {
      * @return .
      */
     String randomWalk(final Map<String, Node> graphNodes) {
-        Set<String> visit = new TreeSet<String>();
-        Random r1 = new Random();
-        int pos = (int) (Math.abs(r1.nextInt()) % graphNodes.size());
+        final Set<String> visit = new TreeSet<String>();
+        final Random ramdomOne = new Random();
+        int pos = (int) (Math.abs(ramdomOne.nextInt()) % graphNodes.size());
         String cur = null;
         int i = 0;
-        for (String key : graphNodes.keySet()) {
+        for (final String key : graphNodes.keySet()) {
             if (i == pos) {
                 cur = key;
                 break;
             }
             i++;
         }
-        Vector<String> result = new Vector<String>();
+        final Vector<String> result = new Vector<String>();
         result.add(cur);
 
         while (true) {
             if (graphNodes.get(cur).getChild().size() == 0) {
                 break;
             }
-            int size = graphNodes.get(cur).getChild().keySet().size();
-            pos = (int) (Math.abs(r1.nextInt()) % size);
+            final int size = graphNodes.get(cur).getChild().keySet().size();
+            pos = (int) (Math.abs(ramdomOne.nextInt()) % size);
             i = 0;
             String next = "";
-            for (String key : graphNodes.get(cur).getChild().keySet()) {
+            for (final String key : graphNodes.get(cur).getChild().keySet()) {
                 if (i == pos) {
                     next = key;
                     break;
                 }
                 i++;
             }
-            String edge = cur + " " + next;
-            if (!visit.contains(edge)) {
-                visit.add(edge);
+            final String edge = cur + " " + next;
+            if (visit.contains(edge)) {
+                break;
                 // System.out.println(edge);
             } else {
-                break;
+                visit.add(edge);
             }
             cur = next;
             result.add(next);
         }
-        StringBuilder tempBuilder = new StringBuilder();
-        for (String word : result) {
+        final StringBuilder tempBuilder = new StringBuilder();
+        for (final String word : result) {
             tempBuilder.append(word + " ");
         }
         return tempBuilder.toString();

@@ -16,20 +16,27 @@ import java.util.Vector;
 public class RebuildGraph {
     /**
      * .
+     */
+    RebuildGraph() {
+        //Nothing special is needed here.
+    }
+    /**
+     * .
      * @param result ;
      * @param nodes ;
      * @throws Exception ;
      */
     final void solution(final Vector<Vector<String>> result,
         final Map<String, Node> nodes) throws Exception {
-        File file = new File("dotfile");
+        final File file = new File("dotfile");
         if (!file.exists() || file.isDirectory()) {
             throw new FileNotFoundException();
         }
-        BufferedReader br = new BufferedReader(new FileReader(file));
+        final BufferedReader br =
+            new BufferedReader(new FileReader(file));
         String temp = null;
         temp = br.readLine();
-        Vector<String> reads = new Vector<String>();
+        final Vector<String> reads = new Vector<String>();
         while (temp != null) {
             reads.add(temp + "\n");
             temp = br.readLine();
@@ -37,13 +44,13 @@ public class RebuildGraph {
         br.close();
         int i = 0;
         //System.out.println(nodes.get("To").getChild().size());
-        String[] colors = new String[]{"blue", "green", "purple", "yellow",
-            "red", "pink", "palegoldenrod", "palegreen", "paleturquoise",
+        final String[] colors = new String[]{"blue", "green", "purple",
+            "yellow", "red", "pink", "palegoldenrod",
+            "palegreen", "paleturquoise",
             "palevioletred", "pansy", "papayawhip", "peachpuff", "peru",
             "pink", "salmon", "camel", "amber", "khaki", "maroon", "green",
             "blue", "red", "scarlet", "mauve"};
-        for (Vector<String> path : result) {
-            System.out.println("wordgraph.RebuildGraph.solution()");
+        for (final Vector<String> path : result) {
             for (int j = path.size() - 1; j > 0; j--) {
 
                 reads.insertElementAt("\n" + path.elementAt(j) + " -> "
@@ -56,29 +63,30 @@ public class RebuildGraph {
             i++;
         }
 
-        StringBuilder content = new StringBuilder();
-        for (String lineString : reads) {
+        final StringBuilder content = new StringBuilder();
+        for (final String lineString : reads) {
             content.append(lineString);
         }
         try {
-            String cont = content.toString();
-            File fileout = new File("dotfilenew.dot");
+            final String cont = content.toString();
+            final File fileout = new File("dotfilenew.dot");
 
             //if fileout doesnt exists, then create it
             if (!fileout.exists()) {
                 fileout.createNewFile();
             }
             //true = append fileout
-            FileWriter fileWritter = new FileWriter(fileout.getName(), false);
-            BufferedWriter bufferWritter = new BufferedWriter(fileWritter);
+            final FileWriter fileWritter =
+                new FileWriter(fileout.getName(), false);
+            final BufferedWriter bufferWritter =
+                new BufferedWriter(fileWritter);
             bufferWritter.write(cont);
             bufferWritter.close();
-            System.out.println("Done");
         } catch (IOException e) {
         }
 
         try {
-            String cmd = "/usr/local/bin/dot"
+            final String cmd = "/usr/local/bin/dot"
         + " -Tgif dotfilenew.dot -o picture.gif";
             //String cmd = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe"
             //+ " -Tgif dotfilenew -o picture.gif";
