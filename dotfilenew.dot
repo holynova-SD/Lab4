@@ -57,31 +57,5 @@ back->hack[ label = 1 ];
 back->mom[ label = 1 ]; 
 back->useful[ label = 1 ]; 
 
-what -> go[ label = 1, color = blue ] 
-
-go -> over[ label = 1, color = blue ] 
-
-over -> back[ label = 1, color = blue ] 
-
-back -> useful[ label = 1, color = blue ] 
-
-useful -> kick[ label = 1, color = blue ] 
-
-kick -> back[ label = 1, color = blue ] 
-
-back -> calendar[ label = 2, color = blue ] 
-
-calendar -> dare[ label = 1, color = blue ] 
-
-dare -> even[ label = 2, color = blue ] 
-
-even -> jump[ label = 1, color = blue ] 
-
-jump -> victory[ label = 1, color = blue ] 
-
-victory -> what[ label = 2, color = blue ] 
-
-what -> after[ label = 1, color = blue ] 
-
-after -> dare[ label = 1, color = blue ] 
+zoo -> zoo[ label = 1, color = blue ] 
 }
