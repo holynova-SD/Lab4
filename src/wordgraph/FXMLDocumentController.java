@@ -624,7 +624,7 @@ public class FXMLDocumentController implements Initializable {
                       value.add(temp);
                       // if(stk.contains(son)) stk.remove(son);
                       stk.push(son);
-                      lenth.put(son, lson + gson);
+                      lenth.put(son, ltemp + gson);
                       path.put(son, value);
                   } else if (ltemp +  gson == lson) {
                       final Vector<String> value = path.get(son);
