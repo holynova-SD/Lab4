@@ -3,89 +3,91 @@ after->back[ label = 2 ];
 after->dare[ label = 1 ]; 
 after->ignore[ label = 1 ]; 
 ignore->after[ label = 1 ]; 
-ignore->back[ label = 1 ]; 
 ignore->football[ label = 1 ]; 
-football->back[ label = 1 ]; 
+ignore->note[ label = 1 ]; 
+note->calendar[ label = 1 ]; 
+calendar->dare[ label = 1 ]; 
+calendar->football[ label = 1 ]; 
+calendar->ignore[ label = 1 ]; 
 football->go[ label = 2 ]; 
 football->useful[ label = 1 ]; 
 football->victory[ label = 1 ]; 
 victory->what[ label = 2 ]; 
 what->after[ label = 1 ]; 
-what->back[ label = 1 ]; 
-back->calendar[ label = 2 ]; 
-back->football[ label = 3 ]; 
-back->hack[ label = 2 ]; 
-back->mom[ label = 1 ]; 
-back->useful[ label = 2 ]; 
-useful->go[ label = 1 ]; 
-useful->kick[ label = 2 ]; 
-kick->back[ label = 2 ]; 
-go->back[ label = 1 ]; 
+what->go[ label = 1 ]; 
 go->hack[ label = 1 ]; 
-go->home[ label = 1 ]; 
-home->back[ label = 1 ]; 
-hack->after[ label = 2 ]; 
-hack->back[ label = 1 ]; 
+go->home[ label = 2 ]; 
+go->lunch[ label = 1 ]; 
+go->over[ label = 1 ]; 
+over->back[ label = 1 ]; 
+back->calendar[ label = 2 ]; 
+back->football[ label = 1 ]; 
+back->hack[ label = 1 ]; 
+back->mom[ label = 1 ]; 
+back->useful[ label = 1 ]; 
+useful->go[ label = 1 ]; 
+useful->kick[ label = 1 ]; 
+kick->back[ label = 1 ]; 
 mom->ignore[ label = 1 ]; 
-hack->after[ label = 2 ]; 
-hack->back[ label = 1 ]; 
-calendar->dare[ label = 1 ]; 
-calendar->ignore[ label = 1 ]; 
+hack->after[ label = 1 ]; 
+hack->go[ label = 1 ]; 
+lunch->back[ label = 1 ]; 
+home->back[ label = 1 ]; 
+home->zoo[ label = 1 ]; 
+zoo->zoo[ label = 1 ]; 
+hack->after[ label = 1 ]; 
+hack->go[ label = 1 ]; 
+useful->go[ label = 1 ]; 
+useful->kick[ label = 1 ]; 
+go->hack[ label = 1 ]; 
+go->home[ label = 2 ]; 
+go->lunch[ label = 1 ]; 
+go->over[ label = 1 ]; 
 dare->even[ label = 2 ]; 
 even->football[ label = 1 ]; 
 even->jump[ label = 1 ]; 
 jump->victory[ label = 1 ]; 
-useful->go[ label = 1 ]; 
-useful->kick[ label = 2 ]; 
-go->back[ label = 1 ]; 
-go->hack[ label = 1 ]; 
-go->home[ label = 1 ]; 
-back->calendar[ label = 2 ]; 
-back->football[ label = 3 ]; 
-back->hack[ label = 2 ]; 
-back->mom[ label = 1 ]; 
-back->useful[ label = 2 ]; 
-back->calendar[ label = 2 ]; 
-back->football[ label = 3 ]; 
-back->hack[ label = 2 ]; 
-back->mom[ label = 1 ]; 
-back->useful[ label = 2 ]; 
+football->go[ label = 2 ]; 
+football->useful[ label = 1 ]; 
+football->victory[ label = 1 ]; 
 dare->even[ label = 2 ]; 
 back->calendar[ label = 2 ]; 
-back->football[ label = 3 ]; 
-back->hack[ label = 2 ]; 
+back->football[ label = 1 ]; 
+back->hack[ label = 1 ]; 
 back->mom[ label = 1 ]; 
-back->useful[ label = 2 ]; 
-
-ignore -> after[ label = 1, color = blue ] 
-
-after -> dare[ label = 1, color = blue ] 
-
-dare -> even[ label = 2, color = blue ] 
-
-even -> football[ label = 1, color = blue ] 
+back->useful[ label = 1 ]; 
 
 football -> go[ label = 2, color = blue ] 
 
-go -> back[ label = 1, color = blue ] 
+go -> over[ label = 1, color = blue ] 
 
-back -> hack[ label = 2, color = blue ] 
+over -> back[ label = 1, color = blue ] 
 
-hack -> after[ label = 2, color = blue ] 
+back -> mom[ label = 1, color = blue ] 
 
-after -> ignore[ label = 1, color = blue ] 
+mom -> ignore[ label = 1, color = blue ] 
 
 ignore -> football[ label = 1, color = blue ] 
 
 football -> useful[ label = 1, color = blue ] 
 
-useful -> go[ label = 1, color = blue ] 
+useful -> kick[ label = 1, color = blue ] 
 
-go -> hack[ label = 1, color = blue ] 
-
-hack -> back[ label = 1, color = blue ] 
+kick -> back[ label = 1, color = blue ] 
 
 back -> calendar[ label = 2, color = blue ] 
 
-calendar -> ignore[ label = 1, color = blue ] 
+calendar -> dare[ label = 1, color = blue ] 
+
+dare -> even[ label = 2, color = blue ] 
+
+even -> jump[ label = 1, color = blue ] 
+
+jump -> victory[ label = 1, color = blue ] 
+
+victory -> what[ label = 2, color = blue ] 
+
+what -> after[ label = 1, color = blue ] 
+
+after -> dare[ label = 1, color = blue ] 
 }

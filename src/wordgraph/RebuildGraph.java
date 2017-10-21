@@ -27,7 +27,7 @@ public class RebuildGraph {
      * @throws Exception ;
      */
     final void solution(final Vector<Vector<String>> result,
-        final Map<String, Node> nodes) throws Exception {
+        final Map<String, SingleNode> nodes) throws Exception {
         final File file = new File("dotfile");
         if (!file.exists() || file.isDirectory()) {
             throw new FileNotFoundException();

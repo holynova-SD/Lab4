@@ -30,7 +30,8 @@ import javafx.scene.image.Image;
  */
 public class FXMLDocumentController implements Initializable {
     /** */
-    private static Map<String, Node> nodes = new TreeMap<String, Node>();
+    private static Map<String, SingleNode> nodes =
+        new TreeMap<String, SingleNode>();
     /** */
     private final String pathString = "/Users/apple/git/Lab4/picture.gif";
     //final String pathString =
@@ -251,30 +252,6 @@ public class FXMLDocumentController implements Initializable {
             onlinetag = true;
         }
         if (event.getSource() == randomwalk) {
-            // String trace=randomWalk(nodes);
-            // Vector<String> traceString = new Vector<String>();
-            // for(String wordString:trace.split(" ")){
-            // if(wordString.length()>0)
-            // traceString.add(wordString);
-            // }
-            //
-            // String toshowString = "";
-            // for (String wordString : traceString) {
-            // toshowString += wordString + " ";
-            // }
-            // Vector<Vector<String>> result = new Vector<Vector<String>>();
-            // Vector<String> traceStringreverse = new Vector<>();
-            // for (int i = traceString.size() - 1; i >= 0; i--) {
-            // traceStringreverse.add(traceString.elementAt(i));
-            // }
-            // try {
-            // result.add(traceStringreverse);
-            // RebuildGraph rebuildGraph = new RebuildGraph();
-            // rebuildGraph.solution(result, nodes);
-            // imgaarea.setImage(new Image(new FileInputStream(pathString)));
-            // } catch (Exception e) {
-            // }
-            // inforarea.setText(toshowString);
             myThread.myThreadSet(imgaarea, pathString, inforarea, nodes);
             // myThread.setStart();
             if (firstwalk) {
@@ -284,7 +261,7 @@ public class FXMLDocumentController implements Initializable {
             firstwalk = false;
         }
         if (event.getSource() == stopwalk) {
-            // myThread.setStop();
+            //myThread.setStop();
             myThread.suspend();
         }
     }
@@ -390,11 +367,11 @@ public class FXMLDocumentController implements Initializable {
         }
 
         for (final Vector<String> line : data) {
-            Node cur = null;
+            SingleNode cur = null;
             if (nodes.containsKey(line.elementAt(0))) {
                 cur = nodes.get(line.elementAt(0));
             } else {
-                cur = new Node(line.elementAt(0));
+                cur = new SingleNode(line.elementAt(0));
                 nodes.put(line.elementAt(0), cur);
             }
             if (line.size() > 1) {
@@ -408,7 +385,8 @@ public class FXMLDocumentController implements Initializable {
                             cur.getChild().put(line.elementAt(i), 1);
                             cur = nodes.get(line.elementAt(i));
                         } else {
-                            final Node n = new Node(line.elementAt(i));
+                            final SingleNode n =
+                                new SingleNode(line.elementAt(i));
                             nodes.put(line.elementAt(i), n);
                             cur.getChild().put(line.elementAt(i), 1);
                             cur = n;
@@ -424,7 +402,7 @@ public class FXMLDocumentController implements Initializable {
      * @throws IOException ;
      * @throws InterruptedException ;
      */
-    final void showDirectedGraph(final Map<String, Node> graphNodes)
+    final void showDirectedGraph(final Map<String, SingleNode> graphNodes)
         throws IOException, InterruptedException {
 
         final Set<String> visit = new TreeSet<String>();
@@ -497,7 +475,8 @@ public class FXMLDocumentController implements Initializable {
      * @param wordSecond ;
      * @return .
      */
-    final Vector<String> queryBridgeWords(final Map<String, Node> graphNodes,
+    final Vector<String> queryBridgeWords(
+        final Map<String, SingleNode> graphNodes,
         final String wordFirst, final String wordSecond) {
         final Vector<String> result = new Vector<String>();
         if (!graphNodes.containsKey(wordFirst)
@@ -518,7 +497,7 @@ public class FXMLDocumentController implements Initializable {
      * @param inputText ;
      * @return .
      */
-    final String generateNewText(final Map<String, Node> graphNodes,
+    final String generateNewText(final Map<String, SingleNode> graphNodes,
         final String inputText) {
         final StringBuilder builder = new StringBuilder();
         String result = "";
@@ -567,7 +546,8 @@ public class FXMLDocumentController implements Initializable {
      * @param wordSecond ;
      * @return .
      */
-    final Vector<String> calcShortestPath(final Map<String, Node> graphNodes,
+    final Vector<String> calcShortestPath(
+        final Map<String, SingleNode> graphNodes,
         final String wordFirst, final String wordSecond) {
         final Map<String, Vector<String>> path =
             shortestPath(graphNodes, wordFirst);
@@ -615,7 +595,7 @@ public class FXMLDocumentController implements Initializable {
      * @return .
      */
     final Map<String, Vector<String>> shortestPath(
-        final Map<String, Node> graphNodes,
+        final Map<String, SingleNode> graphNodes,
         final String wordFirst) {
         if (!graphNodes.containsKey(wordFirst)) {
             return null;
@@ -635,19 +615,18 @@ public class FXMLDocumentController implements Initializable {
 
             for (final String son : graphNodes.get(temp).getChild().keySet()) {
                 if (visit.contains(son)) {
-                  if (lenth.get(temp) + graphNodes.get(
-                      temp).getChild().get(son) < lenth.get(son)) {
+                  int ltemp = lenth.get(temp);
+                  int lson = lenth.get(son);
+                  int gson = graphNodes.get(temp).getChild().get(son);
+                  if (ltemp + gson < lson) {
                       final Vector<String> value = path.get(son);
                       value.clear();
                       value.add(temp);
                       // if(stk.contains(son)) stk.remove(son);
                       stk.push(son);
-                      lenth.put(son, lenth.get(temp)
-                          + graphNodes.get(temp).getChild().get(son));
+                      lenth.put(son, lson + gson);
                       path.put(son, value);
-                  } else if (lenth.get(temp)
-                      + graphNodes.get(temp).getChild().get(son)
-                      == lenth.get(son)) {
+                  } else if (ltemp +  gson == lson) {
                       final Vector<String> value = path.get(son);
                       value.add(temp);
                       path.put(son, value);
@@ -671,7 +650,7 @@ public class FXMLDocumentController implements Initializable {
      * @param graphNodes ;
      * @return .
      */
-    final String randomWalk(final Map<String, Node> graphNodes) {
+    final String randomWalk(final Map<String, SingleNode> graphNodes) {
         final Set<String> visit = new TreeSet<String>();
         final Random ramdomOne = new Random();
         int pos = ramdomOne.nextInt(graphNodes.size());
@@ -734,7 +713,7 @@ class MyThread extends Thread {
     /** */
     private TextArea inforarea;
     /** */
-    private Map<String, Node> nodes;
+    private Map<String, SingleNode> nodes;
     /** */
     private boolean exit;
     /***/
@@ -747,7 +726,7 @@ class MyThread extends Thread {
      * @param graphNodes ;
      */
     void myThreadSet(final ImageView imagearea, final String path,
-        final TextArea textArea, final Map<String, Node> graphNodes) {
+        final TextArea textArea, final Map<String, SingleNode> graphNodes) {
         this.imgaarea = imagearea;
         this.inforarea = textArea;
         this.pathString = path;
@@ -815,7 +794,7 @@ class MyThread extends Thread {
      * @param graphNodes ;
      * @return .
      */
-    String randomWalk(final Map<String, Node> graphNodes) {
+    String randomWalk(final Map<String, SingleNode> graphNodes) {
         final Set<String> visit = new TreeSet<String>();
         final Random ramdomOne = new Random();
         int pos = Math.abs(ramdomOne.nextInt(graphNodes.size()));
